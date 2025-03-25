@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     car.cpp \
+    dialog.cpp \
     filemanager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,11 +18,13 @@ SOURCES += \
 
 HEADERS += \
     car.h \
+    dialog.h \
     filemanager.h \
     mainwindow.h \
     programmanager.h
 
 FORMS += \
+    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.

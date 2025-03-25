@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1281</width>
+    <width>1435</width>
     <height>748</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>360</y>
+      <y>310</y>
       <width>105</width>
       <height>31</height>
      </rect>
@@ -142,8 +142,8 @@
      <rect>
       <x>330</x>
       <y>0</y>
-      <width>641</width>
-      <height>521</height>
+      <width>1081</width>
+      <height>381</height>
      </rect>
     </property>
    </widget>
@@ -151,7 +151,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>360</y>
+      <y>310</y>
       <width>105</width>
       <height>31</height>
      </rect>
@@ -163,8 +163,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>550</y>
+      <x>0</x>
+      <y>640</y>
       <width>429</width>
       <height>34</height>
      </rect>
@@ -196,8 +196,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>1000</x>
-      <y>20</y>
+      <x>10</x>
+      <y>380</y>
       <width>215</width>
       <height>33</height>
      </rect>
@@ -222,10 +222,33 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>70</y>
+      <x>20</x>
+      <y>430</y>
       <width>181</width>
       <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>430</y>
+      <width>105</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>search</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWid">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>480</y>
+      <width>611</width>
+      <height>192</height>
      </rect>
     </property>
    </widget>
@@ -235,7 +258,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1281</width>
+     <width>1435</width>
      <height>27</height>
     </rect>
    </property>

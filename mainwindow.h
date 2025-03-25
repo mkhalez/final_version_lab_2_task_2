@@ -28,5 +28,6 @@ class MainWindow : public QMainWindow {
     void DeleteElementHelper();
     void CorrectElementsHelper();
     void SortByMarkHelper();
+    void SearchDialog();
 };
 #endif	// MAINWINDOW_H

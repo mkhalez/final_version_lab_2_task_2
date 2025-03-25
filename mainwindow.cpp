@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "dialog.h"
 #include "ui_mainwindow.h"
 
 const int kCols = 7;
@@ -33,6 +34,8 @@ MainWindow::MainWindow(QWidget* parent)
             &MainWindow::CorrectElementsHelper);
     connect(ui->sortButton, &QPushButton::clicked, this,
             &MainWindow::SortByMarkHelper);
+    connect(ui->searchButton, &QPushButton::clicked, this,
+            &MainWindow::SearchDialog);
 }
 
 MainWindow::~MainWindow() {
@@ -119,4 +122,59 @@ void MainWindow::Init() {
     QHeaderView* header_2 = ui->view->verticalHeader();
     header_1->setSectionResizeMode(QHeaderView::Stretch);
     header_2->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+void MainWindow::SearchDialog() {
+    Dialog dialog(this);
+    QVector<Car> copy;
+    if (dialog.exec() == QDialog::Accepted) {
+        ui->listWid->clear();
+        QString mark_search, search, contry_search, start_cost_search,
+            finish_cost_search, start_reliability_search,
+            finish_reliability_search, start_comfort_search,
+            finish_comfort_search, start_fuel_search, finish_fuel_search;
+        dialog.InputDate(mark_search, search, contry_search, start_cost_search,
+                         finish_cost_search, start_reliability_search,
+                         finish_reliability_search, start_comfort_search,
+                         finish_comfort_search, start_fuel_search,
+                         finish_fuel_search);
+        copy = manager_.Search(
+            mark_search, search, contry_search, start_cost_search,
+            finish_cost_search, start_reliability_search,
+            finish_reliability_search, start_comfort_search,
+            finish_comfort_search, start_fuel_search, finish_fuel_search);
+    }
+
+    /*for (int i = 0; i < copy.size(); i++) {
+        qDebug() << copy[i].MarkGet() << copy[i].EngineGet()
+                 << copy[i].CostGet() << copy[i].CountryGet()
+                 << copy[i].FuelGet() << copy[i].ReliabilityGet()
+                 << copy[i].ComfortGet();
+    }*/
+
+
+    QVector<QString> list_of_string_element_car;
+    for (int i = 0; i < copy.size(); i++) {
+        list_of_string_element_car.append(
+            copy[i].MarkGet() + " " + copy[i].EngineGet() + " " +
+            QString::number(copy[i].CostGet()) + " " + copy[i].CountryGet() +
+            " " + QString::number(copy[i].FuelGet()) + " " +
+            QString::number(copy[i].ReliabilityGet()) + " " +
+            QString::number(copy[i].ComfortGet()));
+    }
+
+
+    for (int i = 0; i < list_of_string_element_car.size(); i++) {
+        QListWidgetItem* item =
+            new QListWidgetItem(list_of_string_element_car[i], ui->listWid);
+
+        ui->listWid->addItem(item);
+
+        QListWidgetItem* space = new QListWidgetItem;
+        space->setSizeHint(QSize(0, 2));
+        space->setFlags(Qt::NoItemFlags);
+
+        space->setBackground(Qt::gray);
+        ui->listWid->addItem(space);
+    }
 }

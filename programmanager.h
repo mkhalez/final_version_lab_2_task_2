@@ -28,8 +28,17 @@ class ProgramManager {
     void CorrectElemetsList();
     void Sort(int left, int right, int index_for_getter);
     QVariant Getter(int index_for_getter, int j);
+
     void UpdateModel();
     void SortAdditional(int index_for_getter);
+    QVector<Car> Search(QString mark_search, QString engine_search,
+                        QString contry_search, QString start_cost_search,
+                        QString finish_cost_search,
+                        QString start_reliability_search,
+                        QString finish_reliability_search,
+                        QString start_comfort_search,
+                        QString finish_comfort_search,
+                        QString start_fuel_search, QString finish_fuel_search);
 };
 
 #endif	// PROGRAMMANAGER_H

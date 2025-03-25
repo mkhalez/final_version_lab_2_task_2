@@ -1,5 +1,6 @@
 #include "programmanager.h"
 #include <QDebug>
+#include <QVector>
 
 
 ProgramManager::ProgramManager() {
@@ -28,14 +29,14 @@ void ProgramManager::AddToList(QString countr_of_origin, QString mark_of_car,
     list_of_cars_[size_ - 1].ComfortSet(comfort.toInt());
 
 
-    for (int i = 0; i < size_; i++) {
+    /*for (int i = 0; i < size_; i++) {
         qDebug() << list_of_cars_[i].MarkGet() << list_of_cars_[i].EngineGet()
                  << list_of_cars_[i].CostGet() << list_of_cars_[i].CountryGet()
                  << list_of_cars_[i].FuelGet()
 
                  << list_of_cars_[i].ReliabilityGet()
                  << list_of_cars_[i].ComfortGet();
-    }
+    }*/
 }
 
 
@@ -274,6 +275,76 @@ void ProgramManager::SortAdditional(int index_for_getter) {
             Sort(start, i, index_for_getter);
         }
     }
+}
+
+QVector<Car> ProgramManager::Search(
+    QString mark_search, QString engine_search, QString contry_search,
+    QString start_cost_search, QString finish_cost_search,
+    QString start_reliability_search, QString finish_reliability_search,
+    QString start_comfort_search, QString finish_comfort_search,
+    QString start_fuel_search, QString finish_fuel_search) {
+
+    QVector<Car> vector;
+
+
+    for (int i = 0; i < size_; i++) {
+        int v = list_of_cars_[i].CostGet();
+        if (mark_search.isEmpty() ||
+            list_of_cars_[i].MarkGet() == mark_search) {
+            if (engine_search.isEmpty() ||
+                list_of_cars_[i].EngineGet() == engine_search) {
+                if (contry_search.isEmpty() ||
+                    list_of_cars_[i].CountryGet() == contry_search) {
+                    if (start_cost_search.isEmpty() ||
+                        list_of_cars_[i].CostGet() >=
+                            start_cost_search.toInt()) {
+                        if (finish_cost_search.isEmpty() ||
+                            list_of_cars_[i].CostGet() <=
+                                finish_cost_search.toInt()) {
+                            if (start_reliability_search.isEmpty() ||
+                                list_of_cars_[i].ReliabilityGet() >=
+                                    start_reliability_search.toInt()) {
+                                if (finish_reliability_search.isEmpty() ||
+                                    list_of_cars_[i].ReliabilityGet() <=
+                                        finish_reliability_search.toInt()) {
+                                    if (start_comfort_search.isEmpty() ||
+                                        list_of_cars_[i].ComfortGet() >=
+                                            start_comfort_search.toInt()) {
+                                        if (finish_comfort_search.isEmpty() ||
+                                            list_of_cars_[i].ComfortGet() <=
+                                                finish_comfort_search.toInt()) {
+                                            if (start_fuel_search.isEmpty() ||
+                                                list_of_cars_[i].ComfortGet() >=
+                                                    start_fuel_search.toInt()) {
+                                                if (finish_fuel_search
+                                                        .isEmpty() ||
+                                                    list_of_cars_[i]
+                                                            .ComfortGet() <=
+                                                        finish_fuel_search
+                                                            .toInt()) {
+                                                    vector.append(
+                                                        list_of_cars_[i]);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    for (int i = 0; i < vector.size(); i++) {
+        qDebug() << vector[i].MarkGet() << vector[i].EngineGet()
+                 << vector[i].CostGet() << vector[i].CountryGet()
+                 << vector[i].FuelGet() << vector[i].ReliabilityGet()
+                 << vector[i].ComfortGet();
+    }
+    return vector;
 }
 
 QVariant ProgramManager::Getter(int index_for_getter, int j) {
