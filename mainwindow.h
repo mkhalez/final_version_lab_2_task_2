@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow {
    private:
     Ui::MainWindow* ui;
     ProgramManager manager_;
-    void Init();
+    void Init(QString path);
 
 
    private slots:

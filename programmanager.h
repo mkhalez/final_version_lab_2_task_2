@@ -3,6 +3,7 @@
 
 #include <QStandardItemModel>
 #include "car.h"
+#include "filemanager.h"
 
 class ProgramManager {
    public:
@@ -16,11 +17,16 @@ class ProgramManager {
 
 
    public:
+    FileManager our_file;
+    Car* GetListOfCar();
+    void SetListOfCar(Car* new_list);
+
     void AddToList(QString countr_of_origin, QString mark_of_car,
                    QString engine_type, const QString& cost,
                    const QString& fuel_consumption_per_100_km,
                    const QString& reliability, const QString& comfort);
     QStandardItemModel* model;
+    QString path;
     void SetSize(int size);
     int GetSize();
     void SetList();

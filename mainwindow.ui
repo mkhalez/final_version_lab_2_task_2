@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1435</width>
-    <height>748</height>
+    <width>1514</width>
+    <height>743</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="addToListButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>310</y>
+      <x>120</x>
+      <y>350</y>
       <width>105</width>
       <height>31</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>20</y>
+      <x>10</x>
+      <y>60</y>
       <width>301</width>
       <height>268</height>
      </rect>
@@ -150,8 +150,8 @@
    <widget class="QPushButton" name="correctButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>310</y>
+      <x>10</x>
+      <y>350</y>
       <width>105</width>
       <height>31</height>
      </rect>
@@ -196,8 +196,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>380</y>
+      <x>0</x>
+      <y>420</y>
       <width>215</width>
       <height>33</height>
      </rect>
@@ -222,8 +222,8 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>430</y>
+      <x>10</x>
+      <y>470</y>
       <width>181</width>
       <height>31</height>
      </rect>
@@ -252,13 +252,39 @@
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="saveButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>105</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>10</y>
+      <width>105</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>open file</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1435</width>
+     <width>1514</width>
      <height>27</height>
     </rect>
    </property>

@@ -1,4 +1,5 @@
 #include "programmanager.h"
+#include <validstring.h>
 #include <QDebug>
 #include <QVector>
 
@@ -54,6 +55,14 @@ void ProgramManager::AddElement(Car*& list_of_cars, int& size) {
     size++;
 }
 
+Car* ProgramManager::GetListOfCar() {
+    return list_of_cars_;
+}
+
+void ProgramManager::SetListOfCar(Car* new_list) {
+    list_of_cars_ = new_list;
+}
+
 void ProgramManager::SetSize(int size) {
     this->size_ = std::move(size);
 }
@@ -98,6 +107,9 @@ void ProgramManager::DeleteElementFromList(int index) {
 }
 
 void ProgramManager::CorrectElemetsList() {
+
+    ValidString check_correct;
+
     for (int i = 0; i < model->rowCount(); i++) {
 
         QString value_list[7];
@@ -115,7 +127,8 @@ void ProgramManager::CorrectElemetsList() {
             list_of_cars_[i].EngineSet(value_list[1]);
         }
 
-        if (list_of_cars_[i].CostGet() != value_list[2].toInt()) {
+        if (list_of_cars_[i].CostGet() != value_list[2].toInt() &&
+            check_correct.ValidCorrectCost(value_list[2])) {
             list_of_cars_[i].CostSet(value_list[2].toInt());
         }
 
@@ -123,18 +136,23 @@ void ProgramManager::CorrectElemetsList() {
             list_of_cars_[i].CountrySet(value_list[3]);
         }
 
-        if (list_of_cars_[i].FuelGet() != value_list[4].toInt()) {
+        if (list_of_cars_[i].FuelGet() != value_list[4].toInt() &&
+            check_correct.ValidCorrectFuel(value_list[4])) {
             list_of_cars_[i].FuelSet(value_list[4].toInt());
         }
 
-        if (list_of_cars_[i].ReliabilityGet() != value_list[5].toInt()) {
+        if (list_of_cars_[i].ReliabilityGet() != value_list[5].toInt() &&
+            check_correct.ValidCorrectReliability(value_list[5])) {
             list_of_cars_[i].ReliabilitySet(value_list[5].toInt());
         }
 
-        if (list_of_cars_[i].ComfortGet() != value_list[6].toInt()) {
+        if (list_of_cars_[i].ComfortGet() != value_list[6].toInt() &&
+            check_correct.ValidCorrectComfort(value_list[6])) {
             list_of_cars_[i].ComfortSet(value_list[6].toInt());
         }
 
+
+        UpdateModel();
 
         /*manager_.model->setHeaderData(kCol0, Qt::Horizontal, "mark of car:");
         manager_.model->setHeaderData(kCol1, Qt::Horizontal, "engine type:");
@@ -155,14 +173,14 @@ void ProgramManager::CorrectElemetsList() {
     }
 
 
-    /*for (int i = 0; i < size_; i++) {
+    for (int i = 0; i < size_; i++) {
         qDebug() << list_of_cars_[i].MarkGet() << list_of_cars_[i].EngineGet()
                  << list_of_cars_[i].CostGet() << list_of_cars_[i].CountryGet()
                  << list_of_cars_[i].FuelGet()
 
                  << list_of_cars_[i].ReliabilityGet()
                  << list_of_cars_[i].ComfortGet();
-    }*/
+    }
 }
 
 void ProgramManager::Sort(int left, int right, int index_for_getter) {
@@ -288,7 +306,6 @@ QVector<Car> ProgramManager::Search(
 
 
     for (int i = 0; i < size_; i++) {
-        int v = list_of_cars_[i].CostGet();
         if (mark_search.isEmpty() ||
             list_of_cars_[i].MarkGet() == mark_search) {
             if (engine_search.isEmpty() ||

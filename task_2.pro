@@ -14,14 +14,16 @@ SOURCES += \
     filemanager.cpp \
     main.cpp \
     mainwindow.cpp \
-    programmanager.cpp
+    programmanager.cpp \
+    validstring.cpp
 
 HEADERS += \
     car.h \
     dialog.h \
     filemanager.h \
     mainwindow.h \
-    programmanager.h
+    programmanager.h \
+    validstring.h
 
 FORMS += \
     dialog.ui \
