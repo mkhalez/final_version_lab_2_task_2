@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QFileDialog>
 #include "dialog.h"
 #include "ui_mainwindow.h"
 #include "validstring.h"
@@ -37,6 +38,8 @@ MainWindow::MainWindow(QWidget* parent)
             &MainWindow::SortByMarkHelper);
     connect(ui->searchButton, &QPushButton::clicked, this,
             &MainWindow::SearchDialog);
+    connect(ui->openButton, &QPushButton::clicked, this,
+            &MainWindow::DialogOpenWindow);
 }
 
 MainWindow::~MainWindow() {
@@ -64,8 +67,12 @@ void MainWindow::AddToListHelper() {
             throw std::invalid_argument("Invalid input format or value");
         }
 
-        manager_.AddToList(countr_of_origin, mark_of_car, engine_type, cost,
+        manager_.AddToList(mark_of_car, engine_type, cost, countr_of_origin,
                            fuel_consumption_per_100_km, reliability, comfort);
+
+        manager_.our_file.AppendvenLinesToFile(
+            countr_of_origin, mark_of_car, engine_type, cost,
+            fuel_consumption_per_100_km, reliability, comfort);
 
         QList<QStandardItem*> new_row;
         new_row << new QStandardItem(mark_of_car)
@@ -82,6 +89,8 @@ void MainWindow::AddToListHelper() {
         ui->fuelEdit->clear();
         ui->relabilityEdit->clear();
         ui->comfortEdit->clear();
+
+        manager_.DebugList();
 
     } catch (const std::invalid_argument& e) {
         ui->countryEdit->clear();
@@ -115,13 +124,19 @@ void MainWindow::DeleteElementHelper() {
         manager_.model->removeRow(number_int - 1);
         ui->deleteEdit->clear();
 
+
     } catch (const std::invalid_argument& e) {
         ui->deleteEdit->clear();
     }
+    QHeaderView* header_1 = ui->view->horizontalHeader();
+    QHeaderView* header_2 = ui->view->verticalHeader();
+    header_1->setSectionResizeMode(QHeaderView::Stretch);
+    header_2->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void MainWindow::CorrectElementsHelper() {
     manager_.CorrectElemetsList();
+    manager_.our_file.UpdateFile(manager_.GetListOfCar(), manager_.GetSize());
 }
 
 void MainWindow::SortByMarkHelper() {
@@ -132,7 +147,12 @@ void MainWindow::SortByMarkHelper() {
             manager_.SortAdditional(ui->comboBox->currentIndex());
         }
 
+        manager_.our_file.UpdateFile(manager_.GetListOfCar(),
+                                     manager_.GetSize());
+
         manager_.UpdateModel();
+
+        manager_.DebugList();
     }
 }
 
@@ -274,4 +294,38 @@ void MainWindow::SearchDialog() {
                  << copy[i].FuelGet() << copy[i].ReliabilityGet()
                  << copy[i].ComfortGet();
     }*/
+}
+
+
+void MainWindow::DialogOpenWindow() {
+    QString file_path = QFileDialog::getOpenFileName(
+        this,				 // Родительское окно
+        tr("Открыть файл"),	 // Заголовок диалога
+        "",	 // Начальная директория (пустая строка означает текущую директорию)
+        tr("Текстовые файлы (*.txt);;Все файлы (*)")  // Фильтр файлов
+    );
+
+    if (!file_path.isEmpty()) {
+        qDebug() << "Выбранный файл:" << file_path;
+
+        Car* pointer_list = manager_.GetListOfCar();
+
+        // Очищаем текущие данные
+
+
+        if (pointer_list) {
+            delete[] pointer_list;
+            pointer_list = nullptr;
+        }
+
+        manager_.MakeNullList();
+
+        manager_.model->clear();
+
+        // Инициализируем данные из нового файла
+        manager_.our_file.SetPath(file_path);
+        Init(manager_.our_file.GetPath());
+    } else {
+        qDebug() << "Файл не выбран.";
+    }
 }

@@ -29,5 +29,6 @@ class MainWindow : public QMainWindow {
     void CorrectElementsHelper();
     void SortByMarkHelper();
     void SearchDialog();
+    void DialogOpenWindow();
 };
 #endif	// MAINWINDOW_H

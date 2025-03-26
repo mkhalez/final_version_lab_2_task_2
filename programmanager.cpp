@@ -13,8 +13,8 @@ ProgramManager::~ProgramManager() {
     delete[] list_of_cars_;
 }
 
-void ProgramManager::AddToList(QString countr_of_origin, QString mark_of_car,
-                               QString engine_type, const QString& cost,
+void ProgramManager::AddToList(QString mark_of_car, QString engine_type,
+                               const QString& cost, QString countr_of_origin,
                                const QString& fuel_consumption_per_100_km,
                                const QString& reliability,
                                const QString& comfort) {
@@ -55,12 +55,30 @@ void ProgramManager::AddElement(Car*& list_of_cars, int& size) {
     size++;
 }
 
+void ProgramManager::DebugList() {
+    qDebug() << "---------------";
+
+
+    for (int i = 0; i < size_; i++) {
+        qDebug() << list_of_cars_[i].MarkGet() << list_of_cars_[i].EngineGet()
+                 << list_of_cars_[i].CostGet() << list_of_cars_[i].CountryGet()
+                 << list_of_cars_[i].FuelGet()
+
+                 << list_of_cars_[i].ReliabilityGet()
+                 << list_of_cars_[i].ComfortGet();
+    }
+}
+
 Car* ProgramManager::GetListOfCar() {
     return list_of_cars_;
 }
 
 void ProgramManager::SetListOfCar(Car* new_list) {
     list_of_cars_ = new_list;
+}
+
+void ProgramManager::MakeNullList() {
+    list_of_cars_ = nullptr;
 }
 
 void ProgramManager::SetSize(int size) {
@@ -95,6 +113,8 @@ void ProgramManager::DeleteElementFromList(int index) {
     list_of_cars_ = new_array;
     new_array = nullptr;
     size_--;
+
+    our_file.UpdateFile(list_of_cars_, size_);
 
 
     for (int i = 0; i < size_; i++) {
@@ -152,8 +172,6 @@ void ProgramManager::CorrectElemetsList() {
         }
 
 
-        UpdateModel();
-
         /*manager_.model->setHeaderData(kCol0, Qt::Horizontal, "mark of car:");
         manager_.model->setHeaderData(kCol1, Qt::Horizontal, "engine type:");
         manager_.model->setHeaderData(kCol2, Qt::Horizontal, "cost:");
@@ -171,6 +189,10 @@ void ProgramManager::CorrectElemetsList() {
         QStandardItem* item_5 = model->item(i, 5);
         QStandardItem* item_6 = model->item(i, 6);*/
     }
+    UpdateModel();
+
+
+    qDebug() << "------------";
 
 
     for (int i = 0; i < size_; i++) {
